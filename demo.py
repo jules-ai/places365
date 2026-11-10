@@ -9,7 +9,7 @@ from PIL import Image
 arch = 'resnet50'
 
 model_file = f'{arch}_places365.pth.tar'
-if not os.access(model_file, os.W_OK):
+if not os.path.exists(model_file):
     weight_url = 'http://places2.csail.mit.edu/models_places365/' + model_file
     print(f"Downloading {model_file}...")
     urllib.request.urlretrieve(weight_url, model_file)
@@ -28,7 +28,7 @@ centre_crop = trn.Compose([
 ])
 
 file_name = 'categories_places365.txt'
-if not os.access(file_name, os.W_OK):
+if not os.path.exists(file_name):
     synset_url = 'https://raw.githubusercontent.com/csailvision/places365/master/categories_places365.txt'
     print(f"Downloading {file_name}...")
     urllib.request.urlretrieve(synset_url, file_name)
@@ -39,7 +39,7 @@ with open(file_name) as class_file:
 classes = tuple(classes)
 
 img_name = 'cam_example.jpg'
-if not os.access(img_name, os.W_OK):
+if not os.path.exists(img_name):
     img_url = 'http://places.csail.mit.edu/demo/' + img_name
     print(f"Downloading {img_name}...")
     urllib.request.urlretrieve(img_url, img_name)
